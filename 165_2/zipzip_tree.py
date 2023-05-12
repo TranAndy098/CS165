@@ -8,7 +8,7 @@ from dataclasses import dataclass
 from math import log2
 from random import randint
 
-KeyType = TypeVar('KeyType')
+#KeyType = TypeVar('KeyType')
 #ValType = TypeVar('ValType')
 
 @dataclass(eq=True, order=True)
@@ -18,7 +18,7 @@ class Rank:
 
 
 class Node:
-    def __init__(self, key: KeyType, val, rank: Rank):
+    def __init__(self, key, val, rank: Rank):
         self.key = key
         self.val = val
         self.rank = rank
@@ -97,7 +97,7 @@ class ZipZipTree:
     def update_node(self, node):
         pass
 
-    def insert(self, key: KeyType, val, rank: Rank = None):
+    def insert(self, key, val, rank: Rank = None):
         
         if rank == None:
             rank = self.get_random_rank()
@@ -148,24 +148,29 @@ class ZipZipTree:
                 else:
                     fix.right = cur
 
-            q = len(update_queue) - 1
-            while q > -1:
-                self.update_node(update_queue[q])
-                q -= 1
+        q = len(update_queue) - 1
+        while q > -1:
+            self.update_node(update_queue[q])
+            q -= 1
 
 
-    def remove(self, key: KeyType):
+    def remove(self, key):
         update_queue = []
 
         cur = self.root
-
-        while key != cur.key:
+        
+        while cur != None and key != cur.key:
             update_queue.append(cur)
             prev = cur
             cur = cur.left if key < cur.key else cur.right
         
         if cur == None:
+            q = len(update_queue) - 1
+            while q > -1:
+                self.update_node(update_queue[q])
+                q -= 1
             return
+        
         
         left = cur.left
         right = cur.right
@@ -203,7 +208,7 @@ class ZipZipTree:
             self.update_node(update_queue[q])
             q -= 1
 
-    def find(self, key: KeyType): #return value
+    def find(self, key): #return value
         cur = self.root
         while cur != None and key != cur.key:
             if key < cur.key:
@@ -230,7 +235,7 @@ class ZipZipTree:
         return self.height_recur(self.root) - 1
         
 
-    def get_depth(self, key: KeyType):
+    def get_depth(self, key):
         cur = self.root
         depth = 0
         while cur != None and key != cur.key:

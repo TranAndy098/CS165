@@ -1,4 +1,4 @@
-from zipzip_tree import Rank, ZipZipTree, Node, KeyType
+from zipzip_tree import Rank, ZipZipTree, Node
 from dataclasses import dataclass
 from CFloat import CFloat
 
@@ -19,7 +19,7 @@ class FFZipZipTree(ZipZipTree):
             r_cap = node.right.val.best_remaining_capacity.val
         node.val.best_remaining_capacity = CFloat(max(node.val.capacity.val, l_cap, r_cap))
 
-    def insert(self, key: KeyType, capacity, rank: Rank = None):
+    def insert(self, key, capacity, rank: Rank = None):
         ff = FFValue(CFloat(capacity), CFloat(capacity))
         super().insert(key, ff, rank)
     
