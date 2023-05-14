@@ -2,7 +2,6 @@ def merge_sort(nums): #this is actaully reverse_merge_sort
 	nums = merge_sort_breaking(nums)
 	return nums
 
-
 def merge_sort_breaking(nums):
 	if len(nums) <= 1:
 		return nums
@@ -10,9 +9,7 @@ def merge_sort_breaking(nums):
 	new_nums = list(nums)
 	begin = merge_sort_breaking(new_nums[:half])
 	end = merge_sort_breaking(new_nums[half:])
-	
 	index = 0
-
 	begin_index = 0
 	end_index = 0
 	while (begin_index < len(begin) and end_index < len(end)):
@@ -24,15 +21,12 @@ def merge_sort_breaking(nums):
 			nums[index] = end[end_index]
 			index += 1
 			end_index += 1
-	
 	while (begin_index < len(begin)):
 		nums[index] = begin[begin_index]
 		index += 1
 		begin_index += 1
-
 	while (end_index < len(end)):
 		nums[index] = end[end_index]
 		index += 1
 		end_index += 1
-
 	return nums
