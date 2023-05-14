@@ -84,7 +84,8 @@ class ZipZipTree:
         self.capacity = capacity
 
     def print(self):
-        self.root.display()
+        if self.root != None:
+            self.root.display()
 
     def get_random_rank(self) -> Rank:
         flips = 0
@@ -106,6 +107,7 @@ class ZipZipTree:
         update_queue = []
 
         cur = self.root
+        prev = self.root
 
         while cur != None and (rank < cur.rank or (rank == cur.rank and key > cur.key)):
             update_queue.append(cur)
@@ -151,6 +153,7 @@ class ZipZipTree:
         q = len(update_queue) - 1
         while q > -1:
             self.update_node(update_queue[q])
+            #print("i",update_queue[q].key, update_queue[q].val.best_remaining_capacity)
             q -= 1
 
 
@@ -195,17 +198,20 @@ class ZipZipTree:
         while left != None and right != None:
             if left.rank >= right.rank:
                 while left != None and left.rank >= right.rank:
+                    update_queue.append(left)
                     prev = left
                     left = left.right
                 prev.right = right
             else:
                 while right != None and left.rank < right.rank:
+                    update_queue.append(right)
                     prev = right
                     right = right.left
                 prev.left = left
         q = len(update_queue) - 1
         while q > -1:
             self.update_node(update_queue[q])
+            #print("r", update_queue[q].key, update_queue[q].val.best_remaining_capacity)
             q -= 1
 
     def find(self, key): #return value

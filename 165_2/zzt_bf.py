@@ -4,7 +4,7 @@ from CFloat import CFloat
 
 @dataclass
 class BFValue:
-    bin: int
+    bin: list[int]
     best_remaining_capacity: CFloat
 
 
@@ -27,6 +27,8 @@ class BFZipZipTree(ZipZipTree):
         c_key = CFloat(capacity)
         cur = self.root
         while cur != None:
+            if cur.left != None:
+                print(cur.left.val.best_remaining_capacity)
             if cur.left != None and (c_key <= cur.left.val.best_remaining_capacity):
                 cur = cur.left
             elif c_key <= cur.key:

@@ -19,9 +19,9 @@ class FFZipZipTree(ZipZipTree):
             r_cap = node.right.val.best_remaining_capacity.val
         node.val.best_remaining_capacity = CFloat(max(node.val.capacity.val, l_cap, r_cap))
 
-    def insert(self, key, capacity, rank: Rank = None):
+    def insert(self, key, capacity):
         ff = FFValue(CFloat(capacity), CFloat(capacity))
-        super().insert(key, ff, rank)
+        super().insert(key, ff)
     
     def find_first(self, value):
         c_val = CFloat(value)
