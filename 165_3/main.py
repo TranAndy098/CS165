@@ -64,13 +64,14 @@ def ploting(file, destination, color, label):
     plt.savefig(destination)
 
 
-files = ["next_fit_data.txt", "first_fit_data.txt", "first_fit_decreasing_data.txt", "best_fit_data.txt", "best_fit_decreasing_data.txt"]
-destinations_files = ["next_fit_plot.png", "first_fit_plot.png", "first_fit_decreasing_plot.png", "best_fit_plot.png", "best_fit_decreasing_plot.png"]
+files = ["get_diameter.txt", "get_clustering_coefficient.txt", "get_degree_distribution_1000.txt", "get_degree_distribution_10000.txt", "get_degree_distribution_100000.txt"]
+destinations_files = ["get_diameter.png", "get_clustering_coefficient.png", "get_degree_distribution_1000.png", "get_degree_distribution_10000.png", "get_degree_distribution_100000.png"]
+folders = ["get_diameter/", "get_clustering_coefficient/", "get_degree_distribution/", "get_degree_distribution/", "get_degree_distribution/"]
 titles = ["Next Fit Waste", "First Fit Waste", "First Fit Decreasing Waste", "Best Fit Waste", "Best Fit Decreasing Waste"]
-folders = ["next_fit/", "first_fit/", "first_fit_decreasing/", "best_fit/", "best_fit_decreasing/"]
+generates = ["Erdos ","Barabasi "]
+generators = ["erdos_","barabasi_"]
 
-
-
-for i in range(5):
-    plt.figure()
-    ploting(folders[i]+files[i], folders[i]+destinations_files[i], "red", titles[i])
+for generator in generators:
+    for i in range(5):
+        plt.figure()
+        ploting(folders[i]+generator+files[i], folders[i]+generator+destinations_files[i], "red", generates[i]+titles[i])

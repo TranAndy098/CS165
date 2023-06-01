@@ -1,6 +1,9 @@
 import math
 import random
 from graph import Graph
+from graph_algorithms import get_diameter
+from graph_algorithms import get_clustering_coefficient
+from graph_algorithms import get_degree_distribution
 
 import time
 
@@ -38,6 +41,25 @@ def erdos(n):
 
 
 def barabasi(n):
-    pass
+    edges = set()
+    d = 5
+    m = [0] * (2 * n * d)
+
+    for v in range(n):
+        for i in range(d):
+            m[2*(v*d+i)] = v
+            r = random.randint(0, 2*(v*d+i))
+            m[2*(v*d+i) + 1] = m[r]
+    
+    for i in range((n * d) - 1):
+        if m[2*i] != m[2*i + 1]:
+            if m[2*i] < m[2*i + 1]:
+                edges.add((m[2*i], m[2*i + 1]))
+            else:
+                edges.add((m[2*i+1], m[2*i]))
+
+    return Graph(n,edges)
+
+
 
 
